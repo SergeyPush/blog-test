@@ -5,8 +5,8 @@ interface Comment {
   body: string;
 }
 
-interface Post {
-  id: number;
+export interface Post {
+  id?: number;
   title: string;
   body: string;
   comment?: Array<Comment>;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -36,18 +36,19 @@ const Trash = styled.i`
 const PostItem = ({ post, removePost }) => {
   const { id, title, body } = post;
 
-  const reduceBodyLength = (body) => {
+  const reduceBodyLength = (body: string) => {
+    if (!body) {
+      return body;
+    }
     const bodyText = body.split(" ");
-
     if (bodyText.length > 40) {
       const text = bodyText.slice(0, 30).join(" ");
       return text;
     }
-
     return body;
   };
 
-  const handleRemove = (e) => {
+  const handleRemove = (e: MouseEvent) => {
     e.stopPropagation();
     removePost(id);
   };
@@ -65,7 +66,7 @@ const PostItem = ({ post, removePost }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  removePost: (id) => dispatch(removePost(id)),
+  removePost: (id: number) => dispatch(removePost(id)),
 });
 
 export default connect(null, mapDispatchToProps)(PostItem);

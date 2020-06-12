@@ -1,8 +1,10 @@
+import { FormEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { createNewPost } from "../../redux/posts/postActions";
 import styled from "styled-components";
+import { Post } from "../../redux/posts/postReducer";
 
 import Layout from "../../components/Layout";
 
@@ -35,7 +37,7 @@ const New = ({ createPost }) => {
   const [body, setBody] = useState("");
   const router = useRouter();
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const post = { title, body };
     if (title === "" || body === "") {
@@ -69,7 +71,7 @@ const New = ({ createPost }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  createPost: (post) => dispatch(createNewPost(post)),
+  createPost: (post: Post) => dispatch(createNewPost(post)),
 });
 
 export default connect(null, mapDispatchToProps)(New);

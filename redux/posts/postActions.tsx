@@ -1,5 +1,6 @@
 import * as types from "./postTypes";
 import axios from "axios";
+import { Post } from "./postReducer";
 axios.defaults.baseURL = "https://simple-blog-api.crew.red";
 
 export const getAllPosts = () => async (dispatch) => {
@@ -21,7 +22,7 @@ export const getOnePost = (id: number) => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const createNewPost = (post) => async (dispatch) => {
+export const createNewPost = (post: Post) => async (dispatch) => {
   try {
     const response = await axios.post(`/posts`, { ...post });
     const responsePost = response.data;
@@ -33,7 +34,7 @@ export const createNewPost = (post) => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const removePost = (id) => async (dispatch) => {
+export const removePost = (id: number) => async (dispatch) => {
   try {
     await axios.delete(`/posts/${id}`);
     dispatch({
